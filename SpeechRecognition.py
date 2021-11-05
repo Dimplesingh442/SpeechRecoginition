@@ -1,4 +1,3 @@
-
 import pyttsx3 # it will convert text to speech(pip install pyttsx3)
 import speech_recognition as sr #  this is a Library for performing speech recognition, with support for several engines and APIs, online and offline.(pip install SpeechRecognition)
 import wikipedia # this will help you to search wikipedia  (pip install wikipedia)
@@ -21,7 +20,13 @@ from bs4 import BeautifulSoup # Beautiful Soup is a library that makes it easy t
 import pyautogui as pg # it controls the mouse and keybroad by automation(pip install pyautogui)
 import keyboard as k # now you can do any operation on you computer throught automation(pip install keyboard)
 from time import sleep # it will help to stop your code some some time (pip install python-time)
-
+import wolframalpha #The Wolfram|Alpha Webservice API provides a web-based API allowing the computational 
+                    # and presentation capabilities of Wolfram|Alpha to be integrated into web, mobile, desktop, 
+                    # and enterprise applications.(pip install wolframalpha)
+import ssl #SSL stands for Secure Sockets Layer and is designed to create secure connection between client and server. 
+import pyjokes #Pyjokes is used for collection Python Jokes over the Internet.(pip install pyjokes)
+import json #The JSON module is mainly used to convert the python dictionary above into a JSON string that can be written into a file.
+from urllib.request import urlopen #The urllib.request module defines functions and classes which help in opening URLs(mostly HTTP) 
 
 
 
@@ -418,3 +423,226 @@ if __name__=="__main__":
                      pg.click(617,772)
                      k.write(message)
                      pg.press('enter')
+
+              
+              
+              
+              
+              # if want your assistant to sing for you
+              elif "sing a song" in query:
+                     speak(" ok if you insist ")
+                     speak("Blackbird singing in the dead of night Take these broken wings and learn to fly All your life You were only waiting for this moment to arise")
+
+              
+              
+              
+              
+              
+              
+              
+              
+              # this will answer simple questions like the ones listed below.
+              # Input : Who is the prime minister of India? 
+              # Output : narandra modi
+              elif 'who is' in query or 'what is'in query:
+                app_id='PJWYRK-24AA2AWAVE'  # this is the wolframe api id with the help of this you will be able to access answers
+                ssl._create_default_https_context = ssl._create_unverified_context 
+                client = wolframalpha.Client(app_id)# it will create an instance of wolframe aplha
+                res = client.query(query) # it will store the response from wolframe
+                answer = next(res.results).text # it will include only text from the responses
+                print(answer) # it will print the result
+                speak(answer)# it will speak the result
+
+
+              
+              
+              
+              
+              
+              elif "how are you" in query:
+                     speak("I am fine, Thank you")
+                     speak("How are you, Sir")
+
+
+              elif 'fine'in query or 'good'in query:
+                     speak("It's good to know that your fine")
+              
+
+
+              elif 'what is your name' in query or "what's your name" in query:
+                     speak("my name is neer")
+
+              elif 'exit' in query:
+                     speak("Thanks for giving me your time")
+                     exit()
+ 
+              elif "who made you" in query or "who created you" in query:
+                     speak("I have been created by Dimple.")
+              
+              
+              elif 'joke' in query:
+                     speak(pyjokes.get_joke())# this will read a joke using pyjokes api
+
+
+              
+              
+              
+              
+              
+              # this will calculate value of a given expression
+              elif "calculate" in query:
+                     app_id = "PJWYRK-24AA2AWAVE" # this is the wolframe api id with the help of this you will be able to access answers
+                     ssl._create_default_https_context = ssl._create_unverified_context 
+                     client = wolframalpha.Client(app_id) # it will create an instance of wolframe aplha
+                     indx = query.lower().split().index('calculate')# first query will convert into lowercase then it will Split the string 
+                                                                    # into a list where each word is a list item 
+                                                                    # then it will calculate the index value of 'calculate' and
+                                                                    # it the value will stored in indx variable
+                     
+                     query = query.split()[indx + 1:]  # here query will split into a list where each word is a list item and this list 
+                                                       # will consider all the things which you will speak after calculate
+                     
+                     res = client.query(' '.join(query)) # it will search your query from wolframe aplha 
+                     answer = next(res.results).text  # it will store the result in the text form to the answer variables
+                     print("The answer is " + answer) # it will print the answer
+                     speak("The answer is " + answer) # it will speak the answer
+
+
+
+
+              
+              elif "who i am" in query:
+                     print("you are Dimple that's what you have told me anyway")
+                     speak("you are Dimple that's what you have told me anyway")
+              
+
+
+              elif "why you came to the world" in query:
+                     print("hmm.. I don't have answer to that. is there something else i can help with")
+                     speak("hmm.. I don't have answer to that. is there something else i can help with")
+              
+              elif " what is love " in query:
+                     print("It is 7th sense that destroy all other senses")
+                     speak("It is 7th sense that destroy all other senses")
+
+              elif "who are you" in query:
+                     print("I am neer your virtual assistant ")
+                     speak("I am neer your virtual assistant ")
+
+              elif "what are you doing" in query:
+                     print("well I was thinking that if there was no absolute truths,then it cannot be an absolute truth that there are no absolute truth,which means there are absolute truths if there are no absolute truth....")
+                     speak("well I was thinking that if there was no absolute truths,then it cannot be an absolute truth that there are no absolute truth,which means there are absolute truths if there are no absolute truth....")
+
+
+              
+              
+              # it will tell you some of the top news headlines
+              elif 'news' in query:
+                     try:   
+                            ssl._create_default_https_context = ssl._create_unverified_context
+                            news = urlopen('https://newsapi.org/v2/top-headlines?country=in&apiKey=0446e3bde2154065bbf8f8011e0f6c91') # it will get the news data and store it in the news variable
+                            data = json.load(news) # the data which is provided by the url will not be readable that is why we will use json to make it readable
+                            i = 1
+                            speak('here are some top news')
+                            for item in data['articles']: # it will start reading the news from index 0
+                                  print(str(i) + '. ' + item['title'] + '\n') # this will print the news title
+                                  print(item['description'] + '\n')           # this will print the news description 
+                                  speak(str(i) + '. ' + item['title'] + '\n') # this will read the news title
+                                  speak(str(i) +'.' + item['description']+'\n') # this will read the description
+                                  i += 1
+                     except Exception as e:
+                            print(str(e))
+ 
+
+
+
+              
+
+
+
+
+             
+
+              
+              
+             
+                     
+
+              
+
+              
+              
+
+
+
+
+
+                     
+             
+
+
+
+
+                  
+
+
+
+              
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+              
+                      
+ 
+              
+
+
+              
+      
+              
+       
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+
+ 
+
+      
+              
+                        
+              
+
+
+
+              
+              
+              
+              
+            
+                         
