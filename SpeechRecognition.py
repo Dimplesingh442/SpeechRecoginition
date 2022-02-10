@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup # Beautiful Soup is a library that makes it easy t
                               # and modifying the data within it.(pip install bs4)
 import pyautogui as pg # it controls the mouse and keybroad by automation(pip install pyautogui)
 import keyboard as k # now you can do any operation on you computer throught automation(pip install keyboard)
-from time import sleep # it will help to stop your code some some time (pip install python-time)
+from time import sleep # it will help to stop your code for some time (pip install python-time)
 import wolframalpha #The Wolfram|Alpha Webservice API provides a web-based API allowing the computational 
                     # and presentation capabilities of Wolfram|Alpha to be integrated into web, mobile, desktop, 
                     # and enterprise applications.(pip install wolframalpha)
@@ -27,6 +27,10 @@ import ssl #SSL stands for Secure Sockets Layer and is designed to create secure
 import pyjokes #Pyjokes is used for collection Python Jokes over the Internet.(pip install pyjokes)
 import json #The JSON module is mainly used to convert the python dictionary above into a JSON string that can be written into a file.
 from urllib.request import urlopen #The urllib.request module defines functions and classes which help in opening URLs(mostly HTTP) 
+
+
+
+
 
 
 
@@ -48,6 +52,7 @@ def speak(audio):
 
 
 
+
 # wishme fuction is used to wish you in the starting of your program like good morning etc
 def Wishme():
        hour=int(datetime.datetime.now().hour)# this will calculate the current time
@@ -58,6 +63,7 @@ def Wishme():
        else:
               speak("good evening ") 
        speak(" how may i help you")
+       
 
 
 
@@ -103,7 +109,12 @@ if __name__=="__main__":
              
 
              # various tasks you want you program to perform
+              if 'hello' in query:
+                     speak("hello what can I help you....")
+                     TakeCommand()
 
+              
+              
               
               # when you want to search any wikipedia
               if 'wikipedia' in query: # this will search wikipedia word in your query 
@@ -171,7 +182,7 @@ if __name__=="__main__":
               
               
               # when you want to know the current time 
-              elif 'the time' in query:
+              elif 'time' in query:
                      time=datetime.datetime.now().strftime("%H:%M") # it will store the current time in the time variable and time will be in hours and minutes
                      speak(time) # it will speak the time for you
               
@@ -438,13 +449,10 @@ if __name__=="__main__":
               
               
               
-              
-              
-              
               # this will answer simple questions like the ones listed below.
               # Input : Who is the prime minister of India? 
               # Output : narandra modi
-              elif 'who is' in query or 'what is'in query:
+              elif 'who is the' in query or 'what is'in query or 'where is'in query:
                 app_id='PJWYRK-24AA2AWAVE'  # this is the wolframe api id with the help of this you will be able to access answers
                 ssl._create_default_https_context = ssl._create_unverified_context 
                 client = wolframalpha.Client(app_id)# it will create an instance of wolframe aplha
@@ -452,6 +460,17 @@ if __name__=="__main__":
                 answer = next(res.results).text # it will include only text from the responses
                 print(answer) # it will print the result
                 speak(answer)# it will speak the result
+
+
+              
+              elif 'who is'in query:
+                     query=query.replace("who is"," ") # this will remove the word wikipedia 
+                     results=wikipedia.summary(query,sentences=2) # this will store 2 sentenses of searched wikipedia in results
+                     speak("here's what I found on web.....")
+                     print(results) # this will print 2 sentences of searched wikipedia
+                     speak(results) # this will speak 2 setences of searched wikipedia
+
+                    
 
 
               
@@ -552,7 +571,87 @@ if __name__=="__main__":
                                   i += 1
                      except Exception as e:
                             print(str(e))
+              
+
+
+
+
+             
+
+
+              
+
+
+
+
+             
+
+              
+              
+             
+                     
+
+              
+
+              
+              
+
+
+
+
+
+                     
+             
+
+
+
+
+                  
+
+
+
+              
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+              
+                      
  
+              
+
+
+              
+      
+              
+       
+
+
+
+
+
+              
+
+
+
+
+
+
+
 
 
 
